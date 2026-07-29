@@ -9,6 +9,8 @@ frecuencias.
 - Datos agrupados y no agrupados.
 - Intervalos sugeridos mediante la regla de Sturges.
 - Gráficos de frecuencia absoluta y relativa acumulada.
+- Generador aleatorio configurable de 5 a 200 datos.
+- Ficha de presentación con variable, datos y verificación del mínimo de 50.
 - Guía breve con fórmulas y procedimientos.
 - Diseño adaptable para computadoras, tabletas y celulares.
 

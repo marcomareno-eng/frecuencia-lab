@@ -361,6 +361,45 @@ input:focus-visible {
   overflow: hidden;
 }
 
+.assignment-callout {
+  align-items: center;
+  background: #dcefd6;
+  border: 1px solid rgba(35, 113, 69, 0.16);
+  border-radius: 18px;
+  display: flex;
+  gap: 17px;
+  margin: 0 auto 18px;
+  max-width: 1120px;
+  padding: 17px 22px;
+}
+
+.assignment-callout > span {
+  align-items: center;
+  background: var(--green);
+  border-radius: 12px;
+  color: white;
+  display: flex;
+  flex: 0 0 auto;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 19px;
+  height: 48px;
+  justify-content: center;
+  width: 58px;
+}
+
+.assignment-callout strong {
+  display: block;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.assignment-callout p {
+  color: var(--ink-soft);
+  font-size: 10px;
+  line-height: 1.55;
+  margin: 0;
+}
+
 .mode-switch {
   background: #e3e7df;
   display: grid;
@@ -476,6 +515,25 @@ input:focus-visible {
   margin-bottom: 9px;
 }
 
+.text-input {
+  background: #f4f4ef;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 11px;
+  margin-bottom: 20px;
+  padding: 12px 13px;
+  transition: border-color 160ms ease;
+  width: 100%;
+}
+
+.text-input:focus,
+.generator-fields input:focus {
+  border-color: var(--green);
+  outline: 0;
+}
+
 textarea {
   background: #f4f4ef;
   border: 1px solid transparent;
@@ -500,6 +558,136 @@ textarea:focus {
   font-size: 8px;
   line-height: 1.5;
   margin: 8px 0 22px;
+}
+
+.random-generator {
+  background: #eff2eb;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  margin: 4px 0 22px;
+  padding: 16px;
+}
+
+.generator-heading {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+}
+
+.generator-heading strong {
+  display: block;
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+
+.generator-heading small {
+  color: #7d8882;
+  display: block;
+  font-size: 8px;
+  line-height: 1.45;
+}
+
+.generator-heading > span {
+  background: var(--mint);
+  border-radius: 999px;
+  color: var(--green);
+  font-size: 7px;
+  font-weight: 900;
+  padding: 6px 8px;
+  white-space: nowrap;
+}
+
+.preset-row {
+  display: flex;
+  gap: 6px;
+  margin: 14px 0 10px;
+}
+
+.preset-row button {
+  background: white;
+  border: 1px solid #dce1da;
+  border-radius: 999px;
+  color: #728078;
+  cursor: pointer;
+  flex: 1;
+  font-size: 8px;
+  font-weight: 800;
+  padding: 7px 5px;
+}
+
+.preset-row button.active {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+}
+
+.generator-fields {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.generator-fields label {
+  color: #6f7b75;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.generator-fields label span {
+  display: block;
+  margin: 0 0 5px 2px;
+}
+
+.generator-fields input {
+  background: white;
+  border: 1px solid #dce1da;
+  border-radius: 9px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 10px;
+  padding: 9px 7px;
+  width: 100%;
+}
+
+.decimal-toggle {
+  align-items: center;
+  color: #69766f;
+  cursor: pointer;
+  display: flex;
+  font-size: 8px;
+  gap: 7px;
+  margin: 12px 0;
+}
+
+.decimal-toggle input {
+  accent-color: var(--green);
+}
+
+.generator-error {
+  color: #a23c27;
+  font-size: 8px;
+  line-height: 1.4;
+  margin: 0 0 9px;
+}
+
+.generate-button {
+  align-items: center;
+  background: var(--ink);
+  border: 0;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  font-size: 9px;
+  font-weight: 800;
+  justify-content: space-between;
+  padding: 11px 13px;
+  width: 100%;
+}
+
+.generate-button span {
+  color: var(--lime);
+  font-size: 14px;
 }
 
 .classes-control {
@@ -620,6 +808,81 @@ textarea:focus {
   width: 18px;
 }
 
+.presentation-card {
+  align-items: center;
+  background: #f1f5ec;
+  border: 1px solid #dfe7d9;
+  border-radius: 14px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1.3fr) auto auto;
+  margin-bottom: 10px;
+  padding: 14px 16px;
+}
+
+.presentation-card > div {
+  min-width: 0;
+}
+
+.presentation-card small {
+  color: #859088;
+  display: block;
+  font-size: 7px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.presentation-card strong {
+  display: block;
+  font-size: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.requirement-badge {
+  border-radius: 999px;
+  font-size: 8px;
+  font-weight: 900;
+  padding: 8px 10px;
+  white-space: nowrap;
+}
+
+.requirement-badge.complete {
+  background: var(--mint);
+  color: var(--green);
+}
+
+.requirement-badge.pending {
+  background: #fff0db;
+  color: #a45a21;
+}
+
+.dataset-disclosure {
+  background: #f7f8f4;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  padding: 11px 14px;
+}
+
+.dataset-disclosure summary {
+  color: var(--green);
+  cursor: pointer;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.dataset-disclosure p {
+  color: #69766f;
+  font-size: 8px;
+  line-height: 1.7;
+  margin: 11px 0 2px;
+  max-height: 100px;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+}
+
 .table-wrap {
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -709,7 +972,8 @@ tfoot th {
   background: #f4f4ef;
   border-radius: 14px;
   height: 210px;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   padding: 25px 18px 10px;
   position: relative;
 }
@@ -1062,6 +1326,40 @@ tfoot th {
   white-space: nowrap;
 }
 
+.verse-card {
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  margin: 20px auto 0;
+  max-width: 1120px;
+  padding: 30px;
+  text-align: center;
+}
+
+.verse-card > span {
+  color: var(--lime);
+  display: block;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.verse-card p {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(23px, 3vw, 34px);
+  font-weight: 500;
+  line-height: 1.25;
+  margin: 18px auto 14px;
+  max-width: 760px;
+}
+
+.verse-card cite {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 9px;
+  font-style: normal;
+}
+
 footer {
   align-items: center;
   background: #10251d;
@@ -1221,6 +1519,20 @@ footer > a {
 
   .valid-badge {
     display: none;
+  }
+
+  .presentation-card {
+    align-items: stretch;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .requirement-badge {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  .generator-fields {
+    grid-template-columns: 1fr;
   }
 
   .chart {

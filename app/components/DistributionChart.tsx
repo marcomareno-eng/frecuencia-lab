@@ -23,7 +23,12 @@ export function DistributionChart({
         <span />
         <span />
       </div>
-      <div className="chart-bars">
+      <div
+        className="chart-bars"
+        style={{
+          minWidth: rows.length > 18 ? `${rows.length * 42}px` : "100%",
+        }}
+      >
         {rows.map((row) => {
           const value = metric === "fi" ? row.fi : row.Hi;
           const height = Math.max(4, (value / maxValue) * 100);

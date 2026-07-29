@@ -22,6 +22,12 @@ export function FrequencyWorkbench() {
   const [input, setInput] = useState(EXAMPLES.ungrouped);
   const [classCount, setClassCount] = useState(5);
   const [metric, setMetric] = useState<"fi" | "Hi">("fi");
+  const [variableName, setVariableName] = useState("Edad de los estudiantes");
+  const [randomCount, setRandomCount] = useState(50);
+  const [randomMinimum, setRandomMinimum] = useState(10);
+  const [randomMaximum, setRandomMaximum] = useState(25);
+  const [useDecimals, setUseDecimals] = useState(false);
+  const [generatorError, setGeneratorError] = useState("");
 
   const values = useMemo(() => parseData(input), [input]);
   const suggestedClasses = sturgesClassCount(values.length);
@@ -44,6 +50,51 @@ export function FrequencyWorkbench() {
     setInput(EXAMPLES[mode]);
   }
 
+  function generateRandomData() {
+    const normalizedCount = Math.round(randomCount);
+
+    if (
+      !Number.isFinite(normalizedCount) ||
+      normalizedCount < 5 ||
+      normalizedCount > 200
+    ) {
+      setGeneratorError("Elige una cantidad entre 5 y 200 datos.");
+      return;
+    }
+
+    if (
+      !Number.isFinite(randomMinimum) ||
+      !Number.isFinite(randomMaximum) ||
+      Math.abs(randomMinimum) > 1_000_000 ||
+      Math.abs(randomMaximum) > 1_000_000 ||
+      randomMinimum >= randomMaximum
+    ) {
+      setGeneratorError(
+        "Usa un mínimo menor que el máximo, entre −1 000 000 y 1 000 000.",
+      );
+      return;
+    }
+
+    const precision = useDecimals ? 10 : 1;
+    const lower = Math.ceil(randomMinimum * precision);
+    const upper = Math.floor(randomMaximum * precision);
+
+    if (lower > upper) {
+      setGeneratorError("Ese rango no permite generar los valores elegidos.");
+      return;
+    }
+
+    const generatedValues = Array.from({ length: normalizedCount }, () => {
+      const randomValue =
+        Math.floor(Math.random() * (upper - lower + 1)) + lower;
+      return randomValue / precision;
+    });
+
+    setInput(generatedValues.join(", "));
+    setRandomCount(normalizedCount);
+    setGeneratorError("");
+  }
+
   return (
     <section className="workbench-section" id="calculadora">
       <div className="section-intro">
@@ -55,6 +106,17 @@ export function FrequencyWorkbench() {
           Elige el tipo de datos, pega tus valores y observa cómo se forma cada
           columna.
         </p>
+      </div>
+
+      <div className="assignment-callout">
+        <span aria-hidden="true">50+</span>
+        <div>
+          <strong>Modo presentación</strong>
+          <p>
+            Especifica la variable, incluye un mínimo de 50 datos y presenta la
+            tabla de distribución completa.
+          </p>
+        </div>
       </div>
 
       <div className="workbench">
@@ -96,6 +158,17 @@ export function FrequencyWorkbench() {
               </button>
             </div>
 
+            <label htmlFor="variable-name">Variable a estudiar</label>
+            <input
+              className="text-input"
+              id="variable-name"
+              maxLength={80}
+              onChange={(event) => setVariableName(event.target.value)}
+              placeholder="Ej.: Edad de los estudiantes"
+              type="text"
+              value={variableName}
+            />
+
             <label htmlFor="dataset">Tus valores</label>
             <textarea
               id="dataset"
@@ -108,6 +181,90 @@ export function FrequencyWorkbench() {
               Separa con comas, espacios o saltos de línea. Usa punto para
               decimales.
             </p>
+
+            <div className="random-generator">
+              <div className="generator-heading">
+                <div>
+                  <strong>Generador de práctica</strong>
+                  <small>Crea una muestra aleatoria sin escribirla a mano.</small>
+                </div>
+                <span>Máx. 200</span>
+              </div>
+
+              <div className="preset-row" aria-label="Cantidades rápidas">
+                {[30, 50, 100].map((amount) => (
+                  <button
+                    className={randomCount === amount ? "active" : ""}
+                    key={amount}
+                    onClick={() => setRandomCount(amount)}
+                    type="button"
+                  >
+                    {amount} datos
+                  </button>
+                ))}
+              </div>
+
+              <div className="generator-fields">
+                <label>
+                  <span>Cantidad</span>
+                  <input
+                    max="200"
+                    min="5"
+                    onChange={(event) => setRandomCount(Number(event.target.value))}
+                    type="number"
+                    value={randomCount}
+                  />
+                </label>
+                <label>
+                  <span>Mínimo</span>
+                  <input
+                    max="1000000"
+                    min="-1000000"
+                    onChange={(event) =>
+                      setRandomMinimum(Number(event.target.value))
+                    }
+                    type="number"
+                    value={randomMinimum}
+                  />
+                </label>
+                <label>
+                  <span>Máximo</span>
+                  <input
+                    max="1000000"
+                    min="-1000000"
+                    onChange={(event) =>
+                      setRandomMaximum(Number(event.target.value))
+                    }
+                    type="number"
+                    value={randomMaximum}
+                  />
+                </label>
+              </div>
+
+              <label className="decimal-toggle">
+                <input
+                  checked={useDecimals}
+                  onChange={(event) => setUseDecimals(event.target.checked)}
+                  type="checkbox"
+                />
+                <span>Permitir un decimal</span>
+              </label>
+
+              {generatorError && (
+                <p className="generator-error" role="alert">
+                  {generatorError}
+                </p>
+              )}
+
+              <button
+                className="generate-button"
+                onClick={generateRandomData}
+                type="button"
+              >
+                Generar ejemplo aleatorio
+                <span aria-hidden="true">↻</span>
+              </button>
+            </div>
 
             {mode === "grouped" && (
               <div className="classes-control">
@@ -181,6 +338,33 @@ export function FrequencyWorkbench() {
 
             {result.rows.length ? (
               <>
+                <div className="presentation-card">
+                  <div>
+                    <small>Variable a estudiar</small>
+                    <strong>{variableName.trim() || "Sin especificar"}</strong>
+                  </div>
+                  <div>
+                    <small>Cantidad de datos</small>
+                    <strong>n = {result.total}</strong>
+                  </div>
+                  <span
+                    className={
+                      result.total >= 50
+                        ? "requirement-badge complete"
+                        : "requirement-badge pending"
+                    }
+                  >
+                    {result.total >= 50
+                      ? "✓ Cumple el mínimo de 50"
+                      : `Faltan ${50 - result.total} datos`}
+                  </span>
+                </div>
+
+                <details className="dataset-disclosure">
+                  <summary>Ver los datos para la presentación</summary>
+                  <p>{values.map((value) => formatNumber(value)).join(", ")}</p>
+                </details>
+
                 <div className="table-wrap">
                   <table>
                     <thead>

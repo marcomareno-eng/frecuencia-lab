@@ -147,6 +147,15 @@ export function LearningGuide() {
         </div>
         <a href="#calculadora">Probar con mis datos →</a>
       </div>
+
+      <blockquote className="verse-card">
+        <span>Aprender también es crecer</span>
+        <p>
+          “Oirá el sabio, y aumentará el saber; y el entendido adquirirá
+          consejo.”
+        </p>
+        <cite>Proverbios 1:5 · Reina-Valera Antigua</cite>
+      </blockquote>
     </section>
   );
 }
